@@ -165,24 +165,25 @@ public class MovieCollection
     private void searchCast()
     {
         System.out.println("Enter a cast member: ");
-        String searchTerm=scanner.nextLine();
+        String searchTerm=scanner.nextLine().toLowerCase();
         ArrayList<String> cast=new ArrayList<String>();
         for(int i=0; i<movies.size(); i++){
             String currentCast=movies.get(i).getCast()+"|";
             for(int j=0; j<currentCast.length(); j++){
-                String currentMember=currentCast.substring(0, currentCast.indexOf("|"));
+                String currentMember=currentCast.substring(0,currentCast.indexOf("|"));
                 if(!cast.contains(currentMember)){
                     cast.add(currentMember);
                 }
-                currentCast=currentCast.substring(0, currentCast.indexOf("|")+1);
-            }
-        }
-        for(int i=0; i<cast.size(); i++){
-            if(!cast.get(i).contains(searchTerm)){
-                cast.remove(i);
+                currentCast=currentCast.substring(currentCast.indexOf("|")+1);
             }
         }
         stringSort(cast);
+        for(int i=0; i<cast.size(); i++){
+            if(!cast.get(i).toLowerCase().contains(searchTerm)){
+                cast.remove(i);
+                i--;
+            }
+        }
         for(int i=0; i<cast.size(); i++){
             System.out.println((i+1)+". "+cast.get(i));
         }
@@ -217,15 +218,15 @@ public class MovieCollection
     }
     private void stringSort(ArrayList<String> a){
         for(int i=0; i<a.size(); i++){
-            int pos=i;
-            String currentTitle=a.get(pos);
-            for(int j=1; j<a.size(); j++){
-                if(a.get(i).compareTo(currentTitle)<0){
-                    pos=j;
+            int min=i;
+            String current=a.get(min);
+            for(int j=i+1; j<a.size(); j++){
+                if(a.get(j).compareTo(a.get(min))<0){
+                    min=j;
                 }
             }
-            String temp=a.get(pos);
-            a.set(pos, currentTitle);
+            String temp=a.get(min);
+            a.set(min, current);
             a.set(i, temp);
         }
     }
@@ -283,7 +284,21 @@ public class MovieCollection
 
     private void listGenres()
     {
-
+        ArrayList<String>genres=new ArrayList<>();
+        for(int i=0; i<movies.size(); i++){
+            String currentGenres=movies.get(i).getGenres()+"|";
+            for(int j=0; j<currentGenres.length(); j++){
+                String currentGenre=currentGenres.substring(0,currentGenres.indexOf("|"));
+                if(!genres.contains(currentGenre)){
+                    genres.add(currentGenre);
+                }
+                currentGenres=currentGenres.substring(currentGenres.indexOf("|")+1);
+            }
+        }
+        stringSort(genres);
+        for(int i=0; i<genres.size(); i++){
+            System.out.println((i+1)+". "+genres.get(i));
+        }
     }
 
     private void listHighestRated()
