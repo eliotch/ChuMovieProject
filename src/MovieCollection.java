@@ -335,7 +335,6 @@ public class MovieCollection
         ArrayList<Movie>titles=movies;
         for(int i=0; i<50; i++){
             int pos=i;
-            double maxRating=titles.get(pos).getUserRating();
             for(int j=i+1; j<titles.size(); j++){
                 if(titles.get(j).getUserRating()>titles.get(pos).getUserRating()){
                     pos=j;
@@ -364,7 +363,6 @@ public class MovieCollection
         ArrayList<Movie>titles=movies;
         for(int i=0; i<50; i++){
             int pos=i;
-            double maxRevenue=titles.get(pos).getRevenue();
             for(int j=i+1; j<titles.size(); j++){
                 if(titles.get(j).getRevenue()>titles.get(pos).getRevenue()){
                     pos=j;
